@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../theme/custom_colors.dart';
+import '../../web_services/models/apiResponse.dart';
 import '../../widgets/nav_bar_widget.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
 
   @override
@@ -15,10 +16,53 @@ class Profile extends StatelessWidget {
       child: ProfileBody(),
     );
   }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+    throw UnimplementedError();
+  }
 }
 
-class ProfileBody extends StatelessWidget {
+
+class ProfileBody extends StatefulWidget {
+  APIResponse<List<Profile>>? _apiResponse;
+  bool _isLoading = false;
+
+  String formatDateTime(DateTime dateTime) {
+    return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
+  }
+
+  @override
+  State<StatefulWidget> createState() {
+    // TODO: implement createState
+
+    /*_fetchNotes() async {
+      setState(() {
+        _isLoading = true;
+      });
+
+      _apiResponse = await service.getNotesList();
+
+      setState(() {
+        _isLoading = false;
+      });
+    }
+
+    @override
+    void initState() {
+      _fetchNotes();
+      super.initState();
+    }*/
+
+    throw UnimplementedError();
+  }
+
+
   Widget textfield({@required hintText}) {
+
+
+
     return Material(
       elevation: 4,
       shadowColor: Colors.grey,
