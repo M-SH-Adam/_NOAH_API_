@@ -28,7 +28,8 @@ class Routes {
       case login:
         return MaterialPageRoute(builder: (_) => const PhoneNumber());
       case codeVerification:
-        return MaterialPageRoute(builder: (_) => const CodeVerification());
+        //return MaterialPageRoute(builder: (_) => const CodeVerification());
+        return MaterialPageRoute(builder: (_) => const RequestDeliveryScreen());
       case completeProfile:
         return MaterialPageRoute(builder: (_) => const CompleteProfile());
       case map:

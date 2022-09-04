@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
+import 'package:ark_2/models/profile_model.dart';
+import 'package:ark_2/web_services/APIs/Profile_controller.dart';
 
 import '../../theme/custom_colors.dart';
 import '../../widgets/formbuilderphone.dart';
@@ -30,7 +32,6 @@ class EditProfileBody extends StatelessWidget {
   final name = TextEditingController();
   final phone = TextEditingController();
   final email = TextEditingController();
-  final Phone = TextEditingController();
   final address = TextEditingController();
   final birthDate = TextEditingController();
 
@@ -40,6 +41,15 @@ class EditProfileBody extends StatelessWidget {
     myController.dispose();
     super.dispose();
   }*/
+  User userData = new User();
+  User getData(){
+    userData.firstName= name.text;
+    userData.phone = phone.text;
+    userData.email = email.text;
+    userData.address = address.text;
+    userData.birthdate = birthDate.text;
+    return userData;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -152,6 +162,9 @@ class EditProfileBody extends StatelessWidget {
                   Expanded(
                     child: FormButton(
                       function: () {
+                        profile prof = new profile();
+                        prof.sendData(getData());
+                        print(name.text + phone.text);
                         context
                             .read<EditProfileViewModel>()
                             .editProfile(context);

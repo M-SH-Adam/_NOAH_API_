@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/routes.dart';
 import 'login_viewModel.dart';
 
 class Login extends StatelessWidget {
@@ -126,7 +127,10 @@ class LoginBody extends StatelessWidget {
                 children: <Widget>[
                   Expanded(
                     child: ElevatedButton(
-                      onPressed: submit,
+                      //onPressed: submit,Navigator.pushReplacementNamed(context, Routes.map);
+                      onPressed: (){
+                        Navigator.pushReplacementNamed(context, Routes.map);
+                      },
                       child: const Text(
                         'Submit',
                         style: TextStyle(color: Colors.white),

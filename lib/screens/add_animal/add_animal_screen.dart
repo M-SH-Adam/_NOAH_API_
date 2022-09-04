@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
+import 'package:ark_2/models/pets_model.dart';
+import 'package:ark_2/web_services/APIs/';
 
 import '../../theme/custom_colors.dart';
 
@@ -27,6 +29,22 @@ class AddAnimal extends StatelessWidget {
 }
 
 class AddAnimalBody extends StatelessWidget {
+  final name = TextEditingController();
+  final weight = TextEditingController();
+  final color = TextEditingController();
+  final birthday = TextEditingController();
+  var species;
+  var gender;
+
+  User getData(){
+    userData.firstName= name.text;
+    userData.phone = phone.text;
+    userData.email = email.text;
+    userData.address = address.text;
+    userData.birthdate = birthDate.text;
+    return userData;
+  }
+
   final Map<String, dynamic>? data;
   final int? index;
   AddAnimalBody({Key? key, this.data, this.index}) : super(key: key);
@@ -67,21 +85,25 @@ class AddAnimalBody extends StatelessWidget {
                         name: "Name",
                         required: true,
                         textInputAction: TextInputAction.next,
-                        textInputType: TextInputType.text),
+                        textInputType: TextInputType.text,
+                        controller: name,),
                     const SizedBox(height: 15),
                     TextFieldForm(
                         name: "Weight",
                         required: true,
                         textInputAction: TextInputAction.next,
-                        textInputType: TextInputType.number),
+                        textInputType: TextInputType.number,
+                        controller: weight,),
                     const SizedBox(height: 15),
                     TextFieldForm(
                         name: "Color",
                         required: true,
                         textInputAction: TextInputAction.next,
-                        textInputType: TextInputType.text),
+                        textInputType: TextInputType.text,
+                        controller: color,),
                     const SizedBox(height: 15),
                     FormBuilderDateTimePicker(
+                      controller: birthday,
                       name: 'Birth date',
                       initialEntryMode: DatePickerEntryMode.calendar,
                       inputType: InputType.date,
@@ -107,6 +129,7 @@ class AddAnimalBody extends StatelessWidget {
                       ),
                       hint: const Text('Select species'),
                       onChanged: (val) {
+                        species = val;
                         context
                             .read<AddAnimalViewModel>()
                             .getSelectedSpecies(val!);
@@ -165,13 +188,16 @@ class AddAnimalBody extends StatelessWidget {
                         FormBuilderValidators.required(
                             errorText: "Please select gender"),
                       ]),
-                      options: ['Male', 'Female', 'Other']
+                      options: ['Male', 'Female']
                           .map((lang) => FormBuilderFieldOption(
                                 value: lang,
                                 child: Text(lang),
                               ))
                           .toList(growable: false),
                       controlAffinity: ControlAffinity.trailing,
+                      onChanged: (val) {
+                        gender = val;
+                      },
                     ),
                     const SizedBox(height: 15),
                     FormBuilderTextField(

@@ -1,68 +1,27 @@
 import 'package:ark_2/screens/profile/profile_viewModel.dart';
+import 'package:ark_2/models/profile_model.dart';
+import 'package:ark_2/web_services/APIs/Profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../theme/custom_colors.dart';
-import '../../web_services/models/apiResponse.dart';
 import '../../widgets/nav_bar_widget.dart';
 
-class Profile extends StatefulWidget {
+class Profile extends StatelessWidget {
   const Profile({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (_) => ProfileViewModel(),
       child: ProfileBody(),
     );
-  }
 
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-    throw UnimplementedError();
   }
 }
 
-
-class ProfileBody extends StatefulWidget {
-  APIResponse<List<Profile>>? _apiResponse;
-  bool _isLoading = false;
-
-  String formatDateTime(DateTime dateTime) {
-    return '${dateTime.day}/${dateTime.month}/${dateTime.year}';
-  }
-
-  @override
-  State<StatefulWidget> createState() {
-    // TODO: implement createState
-
-    /*_fetchNotes() async {
-      setState(() {
-        _isLoading = true;
-      });
-
-      _apiResponse = await service.getNotesList();
-
-      setState(() {
-        _isLoading = false;
-      });
-    }
-
-    @override
-    void initState() {
-      _fetchNotes();
-      super.initState();
-    }*/
-
-    throw UnimplementedError();
-  }
-
+class ProfileBody extends StatelessWidget {
 
   Widget textfield({@required hintText}) {
-
-
-
     return Material(
       elevation: 4,
       shadowColor: Colors.grey,
@@ -140,14 +99,14 @@ class ProfileBody extends StatefulWidget {
                           color: Colors.teal,
                         ),
                         context.watch<ProfileViewModel>().user['BirthDate'] ==
-                                null
+                            null
                             ? null
                             : context
-                                .watch<ProfileViewModel>()
-                                .user['BirthDate']
-                                .toString()
-                                .split(" ")
-                                .first,
+                            .watch<ProfileViewModel>()
+                            .user['BirthDate']
+                            .toString()
+                            .split(" ")
+                            .first,
                         "Your BirthDate"),
                   ],
                 ),
@@ -220,15 +179,15 @@ class ProfileBody extends StatefulWidget {
             text != null ? text : empty,
             style: text != null
                 ? TextStyle(
-                    color: Colors.black,
-                    fontFamily: 'Source Sans Pro',
-                    fontSize: 18.0,
-                  )
+              color: Colors.black,
+              fontFamily: 'Source Sans Pro',
+              fontSize: 18.0,
+            )
                 : TextStyle(
-                    color: Colors.black26,
-                    fontFamily: 'Source Sans Pro',
-                    fontSize: 18.0,
-                    fontWeight: FontWeight.bold),
+                color: Colors.black26,
+                fontFamily: 'Source Sans Pro',
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold),
           ),
         ));
   }
