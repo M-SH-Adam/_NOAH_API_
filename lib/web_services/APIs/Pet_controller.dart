@@ -1,63 +1,56 @@
 import 'dart:convert';
 //import 'dart:html';
+import 'package:ark_2/app/global_variables.dart';
 import 'package:ark_2/models/pets_model.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-class profile{
-  Future<List<User>> getProfile() async{
-    String uri = "https://arkapp010.000webhostapp.com/get.php";
-    final response  = await http.get(Uri.parse(uri));
-    return userFromJson(response.body);
-  }
+class pet_controller{
 
-  Future<List<User>?> sendData(User user) async {
+  Future<List<Pets>?> sendPetData(Pets pet) async {
     String url = "https://arkapp010.000webhostapp.com/editProfile.php";
-    final response = await http.post(Uri.parse(url), body: {
-      //user.toJson(),
-      "Phone": user.phone,
-      "FirstName": user.firstName,
-      "Address": user.address,
-      "Email": user.email,
-      "Birthdate": user.birthdate,
-    });
-    print("Phone " + user.phone.toString() + " FirstName " + user.firstName.toString() + " Address " + user.address.toString()
-        + " Email " +  user.email.toString() + " Birthdate " + user.birthdate.toString());
+    var body = pet.toJson();
+    final response = await http.post(Uri.parse(url), body: body);
+    print("<!>>>>>>>" + body.toString());
     if (response.statusCode == 200) {
       print("Updated Successfully" + response.body);
       //_ShowDialog("Updated Successfully");
     } else {
       print("Updated Failed" + response.body);
-      //_ShowDialog("Updated Failer");
+      //_ShowDialog("Updated Failed");
+    }
+  }
+
+  void getPetData() async{
+    String url = "https://arkapp010.000webhostapp.com/phoneuser.php";
+    final response = await http.post(Uri.parse(url), body: {
+      "Phone": "01092159256",
+    });
+
+    if (response.statusCode == 200) {
+      print("<<<>>> " + Global.phone);
+      print("<<<>>> " + response.body);
+      //_ShowDialog("Updated Successfully");
+    } else {
+      print("Updated Failed" + response.body);
+      //_ShowDialog("Updated Failed");
     }
   }
 }
 
-/*Future<String> _ShowDialog(String msg) async {
-  return showDialog<String>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return new AlertDialog(
-        title: new Text('Rewind and remember'),
-        content: new SingleChildScrollView(
-          child: new ListBody(
-            children: <Widget>[
-              new Text(msg),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          new FlatButton(
-            child: new Text('Close'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}*/
 
-//String phone, String firstName, String lastName, String passwordKey, dynamic gender, dynamic address,
-//dynamic email, dynamic birthdate, dynamic wallet, dynamic photo
+Future<void> _fetchAnimals() async {
+  const apiUrl = 'https://';
+  List<Pets>? animals;
+  Pets pet = new Pets();
+  final response = await http.get(Uri.parse(apiUrl));
+  final data = json.decode(response.body);
+
+  if(data != null){
+    for (Pets animal in data) {
+      animals?.add(animal);
+    }
+    Global.globleAnimals = animals;
+  }
+}

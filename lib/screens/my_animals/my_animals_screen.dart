@@ -1,10 +1,13 @@
 import 'package:ark_2/app/routes.dart';
+import 'package:ark_2/database/GetDataFromDB.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/global_variables.dart';
 import '../../theme/custom_colors.dart';
 import '../../widgets/nav_bar_widget.dart';
 import 'myAnimals_viewModel.dart';
+import 'package:ark_2/web_services/APIs/Pet_controller.dart';
 
 class MyAnimals extends StatelessWidget {
   const MyAnimals({Key? key}) : super(key: key);
@@ -19,6 +22,11 @@ class MyAnimals extends StatelessWidget {
 }
 
 class MyAnimalsBody extends StatelessWidget {
+  void initState() {
+    pet_controller pet = new pet_controller();
+    pet.getPetData();
+    print(Global.phone);
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -216,6 +224,11 @@ class MyAnimalsBody extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
           backgroundColor: CustomColors.mainColor,
           onPressed: () {
+            // pet_controller pet = new pet_controller();
+            // pet.getPetData();
+            GetDataFromDB DBData =new GetDataFromDB();
+            DBData.getData();
+            print(Global.phone);
             Navigator.pushNamed(context, Routes.addAnimal);
           },
           child: Icon(

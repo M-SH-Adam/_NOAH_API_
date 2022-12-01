@@ -7,6 +7,7 @@ class User {
   String lastName = '';
   String address = '';
   String email = '';
+  DateTime Birthdate = DateTime.now();
 
   void setUserData(){
     Global.phone = this.phone;

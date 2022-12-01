@@ -1,3 +1,4 @@
+import 'package:ark_2/models/pets_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
@@ -16,9 +17,23 @@ class Login extends StatelessWidget {
       child: LoginBody(),
     );
   }
+
 }
 
 class LoginBody extends StatelessWidget {
+
+  final name = TextEditingController();
+
+  // User userData = new User();
+  // User getData(){
+  //   userData.firstName = name.text;
+  //   userData.phone = phone.text;
+  //   userData.email = email.text;
+  //   userData.address = address.text;
+  //   userData.birthdate = birthDate.text;
+  //   return userData;
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

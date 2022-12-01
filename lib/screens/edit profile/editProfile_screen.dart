@@ -1,3 +1,4 @@
+import 'package:ark_2/database/SetDataToDB.dart';
 import 'package:ark_2/screens/edit%20profile/editProfile_viewModel.dart';
 import 'package:ark_2/widgets/formBuilderButton.dart';
 import 'package:ark_2/widgets/formBuilderPhoto.dart';
@@ -5,6 +6,7 @@ import 'package:ark_2/widgets/formBuilderTextField.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:ark_2/models/profile_model.dart';
 import 'package:ark_2/web_services/APIs/Profile_controller.dart';
@@ -29,8 +31,8 @@ class EditProfileBody extends StatelessWidget {
   final Map<String, dynamic>? user;
   EditProfileBody(this.user);
 
-  final name = TextEditingController();
-  final phone = TextEditingController();
+  final firstName = TextEditingController();
+  final lastName = TextEditingController();
   final email = TextEditingController();
   final address = TextEditingController();
   final birthDate = TextEditingController();
@@ -43,11 +45,11 @@ class EditProfileBody extends StatelessWidget {
   }*/
   User userData = new User();
   User getData(){
-    userData.firstName= name.text;
-    userData.phone = phone.text;
+    userData.firstName = firstName.text;
+    userData.lastName = lastName.text;
     userData.email = email.text;
     userData.address = address.text;
-    userData.birthdate = birthDate.text;
+    userData.birthdate = DateFormat('yyyy-MM-dd').format(DateTime.parse(birthDate.text));
     return userData;
   }
 
@@ -70,8 +72,8 @@ class EditProfileBody extends StatelessWidget {
                 autovalidateMode: AutovalidateMode.disabled,
                 skipDisabled: true,
                 initialValue: {
-                  'Name': user?['Name'],
-                  'Phone Number': user?['Phone Number'],
+                  'firstName': user?['Name'],
+                  'lastName Number': user?['lastName Number'],
                   'Email': user?['Email'],
                   'Address': user?['Address'],
                   'BirthDate': user?['BirthDate'],
@@ -86,27 +88,27 @@ class EditProfileBody extends StatelessWidget {
                     ),
                     const SizedBox(height: 15),
                     TextFieldForm(
-                        name: 'Name',
+                        name: 'first Name',
                         required: true,
                         textInputAction: TextInputAction.next,
                         textInputType: TextInputType.text,
-                        controller: name,
+                        controller: firstName,
                     ),
                     const SizedBox(height: 15),
                     FormBuilderTextField(
-                      name: 'Phone Number',
-                      controller: phone,
+                      name: 'last Name',
+                      controller: lastName,
                       decoration: InputDecoration(
-                        labelText: 'Phone Number',
+                        labelText: 'last Name',
                       ),
-                      validator: FormBuilderValidators.compose([
-                        FormBuilderValidators.required(errorText: "This field is required"),
-                        FormBuilderValidators.numeric(errorText: "Enter valid number"),
-                        FormBuilderValidators.maxLength(11, errorText: "Enter valid number"),
-                        FormBuilderValidators.minLength(11, errorText: "Enter valid number"),
-                      ]),
-                      keyboardType: TextInputType.number,
-                      textInputAction: TextInputAction.next,
+                      // validator: FormBuilderValidators.compose([
+                      //   FormBuilderValidators.required(errorText: "This field is required"),
+                      //   FormBuilderValidators.numeric(errorText: "Enter valid number"),
+                      //   FormBuilderValidators.maxLength(11, errorText: "Enter valid number"),
+                      //   FormBuilderValidators.minLength(11, errorText: "Enter valid number"),
+                      // ]),
+                      //keyboardType: TextInputType.number,
+                      //textInputAction: TextInputAction.next,
                     ),
                     const SizedBox(height: 15),
                     FormBuilderTextField(
@@ -162,12 +164,12 @@ class EditProfileBody extends StatelessWidget {
                   Expanded(
                     child: FormButton(
                       function: () {
-                        profile prof = new profile();
-                        prof.sendData(getData());
-                        print(name.text + phone.text);
-                        context
-                            .read<EditProfileViewModel>()
-                            .editProfile(context);
+                        SetDataToDB prof = new SetDataToDB();
+                        prof.sendProfileData(getData());
+                        print(firstName.text + lastName.text);
+                        // context
+                        //     .read<EditProfileViewModel>()
+                        //     .editProfile(context);
                       },
                       name: "Submit",
                     ),

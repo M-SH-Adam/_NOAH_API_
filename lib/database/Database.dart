@@ -15,7 +15,7 @@ class DataBase {
     });
     if (response.body != 'No record found.') {
       Map<String, dynamic> list =
-          new Map<String, dynamic>.from(json.decode(response.body));
+      new Map<String, dynamic>.from(json.decode(response.body));
       User userInfo = User(list);
     }
   }

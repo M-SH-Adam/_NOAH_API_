@@ -1,6 +1,7 @@
 import 'package:ark_2/viewModels/base_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:ark_2/models/petsInfo_model.dart';
 
 class NewAnimalCreated {
   final Map<String, dynamic> animal;
@@ -16,6 +17,8 @@ class AnimalUpdated {
 class AddAnimalViewModel extends BaseViewModel {
   final formKey = GlobalKey<FormBuilderState>();
   final dropKey = GlobalKey<FormFieldState>();
+  List<PetsInfo>? pets;
+  PetsInfoData petsinf = new PetsInfoData();
 
   bool visability = false;
   List<String> types = [];

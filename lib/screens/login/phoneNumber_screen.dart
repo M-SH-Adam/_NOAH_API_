@@ -2,6 +2,7 @@ import 'package:ark_2/widgets/formBuilderButton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:provider/provider.dart';
+import '../../database/GetDataFromDB.dart';
 import '../../widgets/formbuilderphone.dart';
 import 'PhoneNumber_viewModel.dart';
 
@@ -61,6 +62,8 @@ class PhoneNumberBody extends StatelessWidget {
                       Expanded(
                           child: FormButton(
                         function: () {
+                          GetDataFromDB DBData =new GetDataFromDB();
+                          DBData.getData();
                           context
                               .read<PhoneNumberViewModel>()
                               .onSubmit(context);

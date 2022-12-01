@@ -7,7 +7,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
 import 'package:ark_2/models/pets_model.dart';
-import 'package:ark_2/web_services/APIs/';
+import 'package:ark_2/web_services/APIs/Pet_controller.dart';
 
 import '../../theme/custom_colors.dart';
 
@@ -32,17 +32,20 @@ class AddAnimalBody extends StatelessWidget {
   final name = TextEditingController();
   final weight = TextEditingController();
   final color = TextEditingController();
-  final birthday = TextEditingController();
-  var species;
+  DateTime? birthdate ;
+  String? species;
   var gender;
 
-  User getData(){
-    userData.firstName= name.text;
-    userData.phone = phone.text;
-    userData.email = email.text;
-    userData.address = address.text;
-    userData.birthdate = birthDate.text;
-    return userData;
+  Pets petInfo = new Pets();
+  Pets getData(){
+    petInfo.name = name.text;
+    petInfo.weight = weight.text;
+    petInfo.color = color.text;
+    petInfo.birthdate = birthdate;
+    petInfo.petsInfoId = species;
+    petInfo.gender = gender;
+    petInfo.userId = '22';
+    return petInfo;
   }
 
   final Map<String, dynamic>? data;
@@ -103,7 +106,7 @@ class AddAnimalBody extends StatelessWidget {
                         controller: color,),
                     const SizedBox(height: 15),
                     FormBuilderDateTimePicker(
-                      controller: birthday,
+                      //controller: birthdate,
                       name: 'Birth date',
                       initialEntryMode: DatePickerEntryMode.calendar,
                       inputType: InputType.date,
@@ -120,6 +123,9 @@ class AddAnimalBody extends StatelessWidget {
                         FormBuilderValidators.required(
                             errorText: "This field is required"),
                       ]),
+                      onChanged: (value) {
+                        birthdate = value;
+                      },
                     ),
                     const SizedBox(height: 15),
                     FormBuilderDropdown<String>(
@@ -247,6 +253,7 @@ class AddAnimalBody extends StatelessWidget {
                   Expanded(
                       child: FormButton(
                     function: () {
+                      print(">>>>>>>>>>  $name  $color $weight $species $birthdate $gender");
                       data == null
                           ? context
                               .read<AddAnimalViewModel>()
@@ -254,6 +261,8 @@ class AddAnimalBody extends StatelessWidget {
                           : context
                               .read<AddAnimalViewModel>()
                               .updateAnimal(context, index);
+                      pet_controller petsApi = new pet_controller();
+                      petsApi.sendPetData(getData());
                     },
                     name: "Submit",
                   )),

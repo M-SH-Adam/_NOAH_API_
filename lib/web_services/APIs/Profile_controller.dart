@@ -1,5 +1,6 @@
 import 'dart:convert';
 //import 'dart:html';
+import 'package:ark_2/app/global_variables.dart';
 import 'package:ark_2/models/profile_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -12,19 +13,14 @@ class profile{
 
   Future<List<User>?> sendData(User user) async {
     String url = "https://arkapp010.000webhostapp.com/editProfile.php";
-    final response = await http.post(Uri.parse(url), body: {
-      //user.toJson(),
-      "Phone": user.phone,
-      "FirstName": user.firstName,
-      "Address": user.address,
-      "Email": user.email,
-      "Birthdate": user.birthdate,
-    });
-    print("Phone " + user.phone.toString() + " FirstName " + user.firstName.toString() + " Address " + user.address.toString()
+    var body = user.toJson();
+    final response = await http.post(Uri.parse(url), body: body);
+
+    print("Phone " + user.lastName.toString() + " FirstName " + user.firstName.toString() + " Address " + user.address.toString()
         + " Email " +  user.email.toString() + " Birthdate " + user.birthdate.toString());
     if (response.statusCode == 200) {
-      print("Updated Successfully" + response.body);
-      //_ShowDialog("Updated Successfully");
+      print("response.body" + response.body);
+      // _ShowDialog("Updated Successfully");
     } else {
       print("Updated Failed" + response.body);
       //_ShowDialog("Updated Failer");
@@ -32,32 +28,15 @@ class profile{
   }
 }
 
-/*Future<String> _ShowDialog(String msg) async {
-  return showDialog<String>(
-    context: context,
-    barrierDismissible: false, // user must tap button!
-    builder: (BuildContext context) {
-      return new AlertDialog(
-        title: new Text('Rewind and remember'),
-        content: new SingleChildScrollView(
-          child: new ListBody(
-            children: <Widget>[
-              new Text(msg),
-            ],
-          ),
-        ),
-        actions: <Widget>[
-          new FlatButton(
-            child: new Text('Close'),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      );
-    },
-  );
-}*/
+Future<dynamic> getUserInfo() async {
+  String url = 'https://arkapp010.000webhostapp.com/get.php';
+  final response = await http.post(Uri.parse(url), body: {
+    "phone": Global.phone,
+  });
 
-//String phone, String firstName, String lastName, String passwordKey, dynamic gender, dynamic address,
-//dynamic email, dynamic birthdate, dynamic wallet, dynamic photo
+  if (response.body != 'No record found.') {
+    Map<String, dynamic> list =
+    new Map<String, dynamic>.from(json.decode(response.body));
+    User userInfo = User.fromJson(list);
+  }
+}

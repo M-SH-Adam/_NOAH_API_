@@ -1,11 +1,19 @@
-import '../classes/variables/Request.dart';
+import 'package:ark_2/models/request_model.dart';
 import 'package:geolocator/geolocator.dart';
+
+//import '../classes/variables/User.dart';
+import 'package:ark_2/models/profile_model.dart';
+import 'package:ark_2/models/pets_model.dart';
+import 'package:ark_2/models/petsInfo_model.dart';
 
 class Global {
   static String appName = "Noah";
-  static Request request = Request();
+  static Requests request = Requests();
   static String phone = '', firstName = '', lastName =  '', email = '', address = '';
   static bool newUser = true;
+  static List<Pets>? globleAnimals ;
+  static List<Requests>? globleRequests;
+  static User user = new User();
 
   static final Position position = Position.fromMap({
     "latitude": 29.991779,
@@ -31,20 +39,20 @@ class Global {
     // request.startLocation = endLocation;
   }
 
-  static void setCarType(String carType) {
-    request.carType = carType;
-  }
-
-  static void setOffer(String offer) {
-    request.offer = double.parse(offer);
-  }
-
-  static void setTripTime(String tripTime) {
-    request.tripTime =double.parse(tripTime);
-  }
-
-  static void setComment(String comment) {
-    request.comment = comment;
-  }
+  // static void setCarType(String carType) {
+  //   request.carType = carType;
+  // }
+  //
+  // static void setOffer(String offer) {
+  //   request.offer = double.parse(offer);
+  // }
+  //
+  // static void setTripTime(String tripTime) {
+  //   request.tripTime =double.parse(tripTime);
+  // }
+  //
+  // static void setComment(String comment) {
+  //   request.comment = comment;
+  // }
 
 }

@@ -4,6 +4,7 @@ import 'package:ark_2/web_services/APIs/Profile_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../app/global_variables.dart';
 import '../../theme/custom_colors.dart';
 import '../../widgets/nav_bar_widget.dart';
 
@@ -71,28 +72,28 @@ class ProfileBody extends StatelessWidget {
                           color: Colors.teal,
                         ),
                         context.watch<ProfileViewModel>().user['Name'],
-                        ""),
+                        Global.user.firstName.toString()),
                     buildCard(
                         Icon(
                           Icons.phone,
                           color: Colors.teal,
                         ),
                         context.watch<ProfileViewModel>().user['Phone Number'],
-                        "Your Phone Number"),
+                        Global.user.phone.toString()),
                     buildCard(
                         Icon(
                           Icons.email_outlined,
                           color: Colors.teal,
                         ),
                         context.watch<ProfileViewModel>().user['Email'],
-                        "Your Email"),
+                        Global.user.email.toString()),
                     buildCard(
                         Icon(
                           Icons.home,
                           color: Colors.teal,
                         ),
                         context.watch<ProfileViewModel>().user['Address'],
-                        "Your Address"),
+                        Global.user.address.toString()),
                     buildCard(
                         Icon(
                           Icons.calendar_today,
@@ -107,7 +108,7 @@ class ProfileBody extends StatelessWidget {
                             .toString()
                             .split(" ")
                             .first,
-                        "Your BirthDate"),
+                        Global.user.birthdate.toString()),
                   ],
                 ),
               )

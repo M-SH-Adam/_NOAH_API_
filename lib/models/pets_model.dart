@@ -16,7 +16,7 @@ class Pets {
     this.birthdate,
     this.color,
     //this.photo,
-    this.comment,
+    //this.comment,
     this.petsInfoId,
     this.userId,
   });
@@ -28,7 +28,7 @@ class Pets {
   DateTime? birthdate;
   String? color;
   //String? photo;
-  String? comment;
+  //String? comment;
   String? petsInfoId;
   String? userId;
 
@@ -39,7 +39,7 @@ class Pets {
     birthdate: DateTime.parse(json["Birthdate"]),
     color: json["Color"],
     //photo: json["Photo"],
-    comment: json["Comment"],
+    //comment: json["Comment"],
     petsInfoId: json["PetsInfoID"],
     userId: json["UserID"],
   );
@@ -52,7 +52,7 @@ class Pets {
     birthdate != null ?"Birthdate": "${birthdate?.year.toString().padLeft(4, '0')}-${birthdate?.month.toString().padLeft(2, '0')}-${birthdate?.day.toString().padLeft(2, '0')}" : DateTime.now(),
     "Color": color,
     //"Photo": photo,
-    "Comment": comment,
+    //"Comment": comment,
     "PetsInfoID": petsInfoId,
     "UserID": userId,
   };
